@@ -237,6 +237,3 @@ if __name__ == "__main__":
                                                                                         #(3+0+0+5+1+9+9+6)%5=3
 
     genetic_algorithm(city_data,250,0.8,0.2,100)
-  
-
-    
