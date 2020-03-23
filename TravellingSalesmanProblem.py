@@ -234,7 +234,7 @@ if __name__ == "__main__":
 
     city_data=[(0,1),(3,2),(6,1),(7,4.5),(15,-1),(10,2.5),(16,11),(5,6),(8,9),(1.5,12)] #Coordinates of city map birthdate 30.05.1996r. 
                                                                                         #(3+0+0+5+1+9+9+6)%5=3
-
+    
     genetic_algorithm(city_data,250,0.8,0.2,1000)
   
 
