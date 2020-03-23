@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 from numpy.random import choice
@@ -183,7 +184,7 @@ def genetic_algorithm(city_data,P,n,pm,T):
       Select.current_population.update(Select.crossover_population) 
       Select.crossover_population={}
       
-            ### Poprawki związane z lepsza wydajnoscia znalezienia minimum 
+            ### Poprawki zwiazane z lepsza wydajnoscia znalezienia minimum 
 
       for i in Select.current_population:
           Select.route_values[round((total_distance(Select.current_population.get(i))),3)]=Select.current_population.get(i)
