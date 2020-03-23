@@ -248,10 +248,10 @@ if __name__ == "__main__":
     genetic_algorithm(city_data,250,0.8,0.2,100)
 
 
-    # Poprawić wykresy
-    # Poprawić ogólnie cały program obiektowo
-    # Poprawić Selection Operator
-    # Zrobić EXE z pliku i mozliwośc edytowania zmiennych 
+    # Poprawic wykresy
+    # Poprawic ogolnie caly program obiektowo
+    # Poprawic Selection Operator
+    # Zrobic EXE z pliku i mozliwoc edytowania zmiennych 
   
 
     
