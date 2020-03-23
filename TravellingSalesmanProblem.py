@@ -205,19 +205,28 @@ def genetic_algorithm(city_data,P,n,pm,T):
   draw_plot()
  
 def draw_plot():
-      
+  
+  print("City data before GA: {}\n".format(city_data))
+
+  print("City data after GA: {}\n".format(Select.route_values[Select.shortest_route]))
+
   X1,Y1 = zip(*city_data)
   X,Y = zip(*Select.route_values[Select.shortest_route])
 
   gs = gridspec.GridSpec(2, 2)
 
   fig = plt.figure()
-  ax1 = fig.add_subplot(gs[0, 0]) # row 0, col 0
+  ax1 = fig.add_subplot(gs[0, 0]) # row 0, col 0ss
+  # ax1.text(X1[0],Y1[0],"Start")
+  # ax1.text(X1[-1],Y1[-1],"End")
+  # ax1.plot((X1[0],Y1[0]),(X1[-1],Y1[-1]),'g--')
   for i in range(0,len(city_data)):
-    ax1.plot(X1[i:i+2], Y1[i:i+2],'bo-')
-  plt.xlabel("Route of traveling salesman before GA",axes=ax1)
+    ax1.plot(X1[i:i+2], Y1[i:i+2],'bo')
+  plt.xlabel("City Data",axes=ax1)
 
   ax2 = fig.add_subplot(gs[0, 1]) # row 0, col 1
+  ax2.text(X[0],Y[0],"Start")
+  ax2.text(X[-1],Y[-1],"End")
   for i in range(0,len(Select.route_values[Select.shortest_route])):
       ax2.plot(X[i:i+2], Y[i:i+2],'ro-')
   plt.xlabel("Route of traveling salesman after GA",axes=ax2)
@@ -235,7 +244,13 @@ if __name__ == "__main__":
     city_data=[(0,1),(3,2),(6,1),(7,4.5),(15,-1),(10,2.5),(16,11),(5,6),(8,9),(1.5,12)] #Coordinates of city map birthdate 30.05.1996r. 
                                                                                         #(3+0+0+5+1+9+9+6)%5=3
 
-    genetic_algorithm(city_data,250,0.8,0.2,1000)
+    genetic_algorithm(city_data,250,0.8,0.2,100)
+
+
+    # Poprawić wykresy
+    # Poprawić ogólnie cały program obiektowo
+    # Poprawić Selection Operator
+    # Zrobić EXE z pliku i mozliwośc edytowania zmiennych 
   
 
     
