@@ -50,7 +50,7 @@ class Select():
         self.draw_plot()
         
     def draw_plot(self):
-  
+        
         print("City data before GA: {}\n".format(city_data))
         print("City data after GA: {}\n".format(self.route_values[self.shortest_route]))
         X1,Y1 = zip(*city_data)
@@ -58,6 +58,7 @@ class Select():
         gs = gridspec.GridSpec(2, 2)
         fig = plt.figure()
         ax1 = fig.add_subplot(gs[0, 0]) # row 0, col 0ss
+        ax1.xaxis.set_label_position('top')
         # ax1.text(X1[0],Y1[0],"Start")
         # ax1.text(X1[-1],Y1[-1],"End")
         # ax1.plot((X1[0],Y1[0]),(X1[-1],Y1[-1]),'g--')
@@ -71,7 +72,10 @@ class Select():
         
         for i in range(0,len(self.route_values[self.shortest_route])):
             ax2.plot(X[i:i+2], Y[i:i+2],'ro-')
+        ax2.plot([X[0],X[-1]], [Y[0],Y[-1]], 'b-', label="return route")
+        plt.legend(loc='upper right')
         plt.xlabel("Route of traveling salesman after GA",axes=ax2)
+        ax2.xaxis.set_label_position('top')
 
         ax3 = fig.add_subplot(gs[1, :]) # row 1, span all columns
         ax3.plot(self.iteration_plot,self.shortest_route_plot,'k-')
