@@ -14,6 +14,7 @@ class Select():
         self.itaretion=0
         self.parent=0
         self.shortest_route=10000
+        self.initial_pop_route = None
         self.current_population={}
         self.crossover_population={}
         self.route_values={}
@@ -39,6 +40,8 @@ class Select():
                     round((self.total_distance(self.current_population.get(i))),3)
                     ] = self.current_population.get(i)
             minimum = min(self.route_values.keys())
+            if self.itaretion == 0:
+                self.initial_pop_route = minimum
             if minimum < self.shortest_route:
                 self.shortest_route = minimum
           # print("Shortest possible route in this iteration is {} and the chromsome is {}".format(self.shortest_route,self.route_values[self.shortest_route]))
@@ -46,8 +49,8 @@ class Select():
             self.shortest_route_plot.append(self.shortest_route)
             self.itaretion += 1
             
-        print("Shortest possible route to considered traveling salesman problem is {}".format(self.shortest_route))
-        self.draw_plot()
+        # print("Shortest possible route to considered traveling salesman problem is {}".format(self.shortest_route))
+        # self.draw_plot()
         
     def draw_plot(self):
         
@@ -55,9 +58,14 @@ class Select():
         print("City data after GA: {}\n".format(self.route_values[self.shortest_route]))
         X1,Y1 = zip(*city_data)
         X,Y = zip(*self.route_values[self.shortest_route])
-        gs = gridspec.GridSpec(2, 2)
+        gs = gridspec.GridSpec(3, 2)
         fig = plt.figure()
-        ax1 = fig.add_subplot(gs[0, 0]) # row 0, col 0ss
+        fig.subplots_adjust(top=0.95)
+        # ax0 = fig.add_subplot(gs[0,:])
+        # ax0.axis('off')
+        fig.text(0.5, 0.85, "Initial route: {}".format(self.initial_pop_route), ha='center', va='center', fontsize='x-large')
+        fig.text(0.5, 0.8   , "Shortest route: {}".format(self.shortest_route), ha='center', va='center', fontsize='x-large')
+        ax1 = fig.add_subplot(gs[1, 0]) # row 0, col 0ss
         ax1.xaxis.set_label_position('top')
         # ax1.text(X1[0],Y1[0],"Start")
         # ax1.text(X1[-1],Y1[-1],"End")
@@ -66,7 +74,7 @@ class Select():
         for i in range(0,len(city_data)):
             ax1.plot(X1[i:i+2], Y1[i:i+2],'bo')
         plt.xlabel("City Data",axes=ax1)
-        ax2 = fig.add_subplot(gs[0, 1]) # row 0, col 1
+        ax2 = fig.add_subplot(gs[1, 1]) # row 0, col 1
         ax2.text(X[0],Y[0],"Start")
         ax2.text(X[-1],Y[-1],"End")
         
@@ -77,7 +85,7 @@ class Select():
         plt.xlabel("Route of traveling salesman after GA",axes=ax2)
         ax2.xaxis.set_label_position('top')
 
-        ax3 = fig.add_subplot(gs[1, :]) # row 1, span all columns
+        ax3 = fig.add_subplot(gs[2, :]) # row 1, span all columns
         ax3.plot(self.iteration_plot,self.shortest_route_plot,'k-')
         plt.ylabel("Route distance",axes=ax3)
         plt.xlabel("Algorithm iteration",axes=ax3)
@@ -225,6 +233,29 @@ class Select():
             new_off[swp[0]], new_off[swp[1]] = new_off[swp[1]], new_off[swp[0]]
         return new_off
 
+def task():
+    city_data=[(0,1),(3,2),(6,1),(7,4.5),(15,-1),
+               (10,2.5),(16,11),(5,6),(8,9),(1.5,12)]
+    T = 100
+    P_set = [100,300,500]
+    n_set = [0.5,0.7,0.9]
+    pm_set = [0.1,0.3,0.5]
+    results = []
+    
+    l_of_sets = [P_set, n_set, pm_set]
+    all_possib = list(itertools.product(*l_of_sets))
+    
+    for pos in all_possib:
+        select = Select()
+        result_list = []
+        P = pos[0]
+        n = pos[1]
+        pm = pos[2]
+        select.genetic_algorithm(city_data,P,n,pm,T)
+        result_list.append((pos,select.shortest_route))
+        results.append(result_list)
+    print ("Results: {}".format(results))
+        
 if __name__ == "__main__":
     city_data=[(0,1),(3,2),(6,1),(7,4.5),(15,-1),
                (10,2.5),(16,11),(5,6),(8,9),(1.5,12)] #Coordinates of city map birthdate 30.05.1996r. 
@@ -236,6 +267,8 @@ if __name__ == "__main__":
     pm = 0.2
     T = 100
     
-    select.genetic_algorithm(city_data,P,n,pm,T)
+    # select.genetic_algorithm(city_data,P,n,pm,T)
+    
+    task()
     
     pass
