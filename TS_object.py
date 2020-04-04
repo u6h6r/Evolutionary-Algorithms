@@ -246,14 +246,20 @@ def task():
     all_possib = list(itertools.product(*l_of_sets))
     
     for pos in all_possib:
+        print ("Calculating for set {}".format(pos))
         select = Select()
         result_list = []
         P = pos[0]
         n = pos[1]
         pm = pos[2]
-        select.genetic_algorithm(city_data,P,n,pm,T)
-        result_list.append((pos,select.shortest_route))
+        shortest = 0
+        for i in range(10):
+            # print ("Try: {}".format(i))
+            select.genetic_algorithm(city_data,P,n,pm,T)
+            shortest += select.shortest_route
+        result_list.append((pos,shortest/10))
         results.append(result_list)
+        print ("Result for given set mean: {}".format(result_list))
     print ("Results: {}".format(results))
         
 if __name__ == "__main__":
